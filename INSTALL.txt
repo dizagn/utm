@@ -1,0 +1,14 @@
+UTM First official release 1.0 - March 2015
+PHP 5 rapid MVC development framework
+
+INSTALLATION
+-------------
+UTM requires no installation steps, unzip or untar into your application folder.
+
+SYSTEM REQUIREMENTS
+---------------------
+PHP 5.3 and more, Not tested with PHP6.
+
+GETTING STARTED
+----------------
+Best place to start is http://framework.dizagn.com

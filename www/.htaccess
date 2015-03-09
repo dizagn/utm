@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # ex: url réécrites
+    #RewriteRule ^mes-actualites.html index.php?ctrl=index&act=news [QSA,L,NC]
+
+    # ex: redirection 301
+    #RewriteRule ^contact$ http://www.uniteam.fr [R=301]
+
+    # Catch all framework url au format http://www.exemple.fr/crtl/act
+    RewriteRule ^([a-z0-9]+)$ index.php?ctrl=$1 [QSA,L,NC]
+    RewriteRule ^([a-z0-9]+)\/([a-z0-9]+)$ index.php?ctrl=$1&act=$2 [QSA,L,NC]
+</IfModule>
