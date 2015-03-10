@@ -14,7 +14,8 @@ Framework PHP5 : rapide, leger et éprouvé
 - Cloner le dépot GIT : git clone https://github.com/Dizagn/utm.git
 
 ## Installation
-C'est la toute la beauté du framework il n'y a rien a installer en plus ;). Il vous siffit d'avoir un serveur web avec php 5 fonctionnel.
+C'est la toute la beauté du framework il n'y a rien a installer en plus ;). Il vous suffit d'avoir un serveur web avec php 5 fonctionnel.
+Cependant pour des raisons de sécurité, il convient de faire pointer le document root de votre projet dans le dossier www du framework.
 
 ## Documentation
 Toute la documentation est disponible sur [le site officiel ](http://utm.dizagn.com/?ctrl=documentation)
