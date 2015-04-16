@@ -59,7 +59,7 @@ class error extends corePlugin
         if(TRUE == isset(core::$config['path']['log']) && true == is_writable(core::$config['path']['log'])){
             $l_sMessage = "\nError ".date('Y-m-d H:i:s')." **********************
             \n".coreError::getError('txt').$this->getDebugInfo() ;
-            file_put_contents(core::$config['path']['log'].core::$config['error']['logFile'], $l_sMessage , FILE_APPEND) ;
+            file_put_contents(realpath(core::$config['path']['log']).DIRECTORY_SEPARATOR.core::$config['error']['logFile'], $l_sMessage , FILE_APPEND) ;
         }
     }
 
