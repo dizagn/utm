@@ -130,6 +130,9 @@ class core {
 
             // Emission de l'evenement onFinish
             corePlugin::emit('onFinish');
+            // Emission de l'evenement onPluginFinish
+            corePlugin::emit('onUltimateFinish');
+            
         }
         catch( Exception $e){
             trigger_error($e,E_USER_ERROR);

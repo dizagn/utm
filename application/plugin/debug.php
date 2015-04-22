@@ -63,7 +63,7 @@ class debug extends corePlugin
      * differentes methodes selon que l'on utilise xdebug ou pas
      * Cette methode se déclenche sur l'évenement onFinish
      */
-    public function onFinish(){
+    public function onUltimateFinish(){
         if(FALSE == $this->isActive()){
             return FALSE;
         }
