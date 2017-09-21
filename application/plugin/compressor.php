@@ -77,7 +77,7 @@ class compressor extends corePlugin
         // Si le compressor est désactivé ou Si le fichier n'existe pas on log
         if( !is_file($p_sJSFileName)){
             if(TRUE == $this->isLoaded('debug')){
-                $this->debug->addToDebug('Compressor JS', 'Le fichier '.$p_sJSFileName.' n\'a pu être chargé', 'compressor');
+                $this->debug->addToDebug('Compressor [JS]', 'Le fichier '.$p_sJSFileName.' n\'a pu être chargé', 'compressor');
             }
             return $p_sJSFileName;
         }
@@ -97,13 +97,13 @@ class compressor extends corePlugin
                 $l_sMessage = 'Ecriture du fichier ' . $l_sMinFileName ;
             }
             else{
-                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture?) : ' . $l_sMinFileName ;
+                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture, fichier vide ?) : ' . $l_sMinFileName ;
             }
         }
 
         /* Utilisation du plugin debug pour logguer*/
         if(TRUE == $this->isLoaded('debug') && TRUE == isset($l_sMessage)){
-            $this->debug->addToDebug('Compressor JS', $l_sMessage, 'compressor');
+            $this->debug->addToDebug('Compressor [JS]', $l_sMessage, 'compressor');
         }
         return $l_sMinFileName;
     }
@@ -140,11 +140,11 @@ class compressor extends corePlugin
                 $l_sMessage = 'Ecriture du fichier ' . $l_sMinFileName ;
             }
             else{
-                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture?) : ' . $l_sMinFileName ;
+                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture, ou fichier vide ?) : ' . $l_sMinFileName ;
             }
 
             if(TRUE == $this->isLoaded('debug')){
-                $this->debug->addToDebug('Compressor CSS', $l_sMessage, 'compressor');
+                $this->debug->addToDebug('Compressor [CSS]', $l_sMessage, 'compressor');
             }
         }
         return $l_sMinFileName;
