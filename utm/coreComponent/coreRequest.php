@@ -16,7 +16,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version : $Id$
+ * @version : $Id: coreRequest.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @file
  * Classe gérant l'objet request. Cet objet est l'netité representatnt la
@@ -130,6 +130,9 @@ class coreRequest extends coreComponent{
     }
     public function getMethod(){
         return $this->m_sRequestType;
+    }
+    public function getRequest(){
+        return array($this->m_sController, $this->m_sAction, $this->m_sModule, $this->m_aGet, $this->m_aPost, $this->m_aCli);
     }
 
     /**

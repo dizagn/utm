@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version: $Id$
+ * @version: $Id: core.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @file
  * Fichier coeur du framework

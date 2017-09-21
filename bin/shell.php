@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version: $Id$
+ * @version: $Id: shell.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @file
  * Shell en version beta, permettant de simplifier certaines taches telles que :
@@ -33,7 +33,7 @@ if(PHP_SAPI!='cli'){
 
 class utmShell {
 
-    const UTM_VERSION = '0.1' ;
+    const UTM_VERSION = '1.1' ;
     const CONFIG_FILE = '../application/config/utm.ini' ;
 
     protected $choice = null ;

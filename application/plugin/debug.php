@@ -12,6 +12,9 @@ class debug extends corePlugin
     protected $m_sStopDebug = FALSE; // indique si un autre plugin a demandé l'arret du debug
 
     public function onStart(){
+        if(FALSE == $this->isActive()){
+            return FALSE;
+        }
         $this->m_sInitTime = microtime(TRUE);
         $this->m_sMemory = (TRUE == extension_loaded('xdebug'))? xdebug_memory_usage() : memory_get_usage(FALSE) ;
         $this->m_sPeakMemory = TRUE == extension_loaded('xdebug')? xdebug_peak_memory_usage() : memory_get_peak_usage(FALSE) ;
@@ -39,11 +42,11 @@ class debug extends corePlugin
      */
     public function isActive(){
         // Debug activé
-        if (FALSE == core::$config['debug']['display'] ){
+        if(FALSE == core::$config['debug']['display'] ){
             return FALSE;
         }
         // Appel ajax
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'xmlhttprequest'){
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'xmlhttprequest'){
             return FALSE;
         }
         // On vérifie si un autre plugin n'aurait pas demandé l'arret de l'execution
@@ -72,7 +75,8 @@ class debug extends corePlugin
             $this->addToDebug('Mémoire système', ($this->m_sMemory/1000).' Ko ('.($this->m_sPeakMemory/1000).' Ko)', 'memory');
             $this->addToDebug('Mémoire Applicative', ((xdebug_memory_usage()-$this->m_sMemory)/1000).' Ko ('.((xdebug_peak_memory_usage()-$this->m_sPeakMemory)/1000).' Ko)', 'memory');
             $this->addToDebug('Temps d\'éxécution',round(xdebug_time_index(),3).' sec.' , 'time');
-        }else{
+        }
+        else{
             $this->addToDebug('Temps d\'éxécution',round(microtime(true)-$this->m_sInitTime,3).' sec.' , 'time');
             $this->addToDebug('Mémoire système', (memory_get_usage(FALSE)/1000).' Ko ('.(memory_get_peak_usage(FALSE)/1000).' Ko)', 'memory');
             $this->addToDebug('Mémoire Applicative', ((memory_get_usage(FALSE)-$this->m_sMemory)/1000).' Ko ('.((memory_get_peak_usage(FALSE)-$this->m_sPeakMemory)/1000).' Ko)', 'memory');
@@ -86,8 +90,8 @@ class debug extends corePlugin
 
     protected function makeDebugTable(){
         $l_sString ='<pre><style>
-                    #debugOutput {font-size:12px;}
-                    #debugOutput {min-width:500px;border:2px solid '.$this->color.';margin:10px}
+                    #debugOutput {font-size:11px;}
+                    #debugOutput {min-width:500px;max-width:800px;border:2px solid '.$this->color.';margin:10px}
                     #debugOutput th{height:16px;width:180px;background-color:'.$this->color.'; color:#000;font-weight:bold;text-align:right;padding:0px 8px;}
                     #debugOutput td{height:16px;background-color:#000; color:'.$this->color.';font-weight:normal;padding:0px 6px;}
                 </style>
@@ -96,7 +100,7 @@ class debug extends corePlugin
         ksort($this->m_aDebug);
         foreach($this->m_aDebug AS $l_sCategory => $l_aValues){
             foreach($l_aValues AS $l_sLabel => $l_sValue){
-                $l_sString .= '<tr><th>'.$l_sLabel.'</th><td>'.$l_sValue.'</td></tr>';
+                $l_sString .= '<tr><th>'.$l_sLabel.'</th><td>'.nl2br($l_sValue).'</td></tr>';
             }
         }
         return $l_sString.'</table></pre>';

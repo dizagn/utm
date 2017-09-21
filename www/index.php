@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version  : $Id$
+ * @version  : $Id: index.php 57311 2017-09-14 15:44:08Z n.namont@uniteam.fr $
  */
 
 /**
@@ -33,8 +33,7 @@ $mvc = core::instance() ;
 $mvc->registerPlugin('debug','error');
 
 // On enregistre les plugins complémentaires en fonction du besoin
-//$mvc->registerPlugin('env','phpTemplate','compressor','protect','db','form','session');
-
+$mvc->registerPlugin('env',/*'session',*/'phpTemplate','compressor',/*'userManager','db','form',*/'rewrite');
 
 // On lance l'execution du framework
 $mvc->run() ;

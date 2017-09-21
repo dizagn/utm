@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version : $Id$
+ * @version : $Id: coreController.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  * 
  * @file
  * Cette classe contient la liste des methodes utilisables dans un controller
@@ -77,6 +77,19 @@ class coreController extends coreComponent
         // On procède à la redirection si les entêtes n'ont pas été envoyés
         if (FALSE == headers_sent()){
             header('Location:index.php?'.rtrim($l_sUrl, '&')); exit;
+        }
+        else{
+            throw new Exception('La redirection est impossible car les entêtes ont déjà été envoyés') ;
+        }
+    }
+    
+    /**
+     * /!\ A securiser !!
+     * @param type $p_sUrl
+     */
+    public function redirect2url($p_sUrl){
+        if (FALSE == headers_sent()){
+            header('Location:'.$p_sUrl) ;
         }
         else{
             throw new Exception('La redirection est impossible car les entêtes ont déjà été envoyés') ;

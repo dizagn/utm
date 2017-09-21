@@ -8,5 +8,7 @@
 class indexController extends coreController
 {
     // methode automagique du framework pour executer le controlleur
-    public function index(){}
+    public function index() {
+        
+    } 
 }

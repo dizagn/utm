@@ -1,5 +1,5 @@
 # UTM framework
-Framework PHP5 : rapide, leger et éprouvé
+Framework PHP : rapide, leger et éprouvé
 
 - Facilite la mise oeuvre d'un projet grâce à des fichiers d'exemples fournis par defaut avec l'application
 - Utilisation du modèle MVC simplifié.
@@ -14,11 +14,11 @@ Framework PHP5 : rapide, leger et éprouvé
 - Cloner le dépot GIT : git clone https://github.com/Dizagn/utm.git
 
 ## Installation
-C'est la toute la beauté du framework il n'y a rien a installer en plus ;). Il vous suffit d'avoir un serveur web avec php 5 fonctionnel.
-Cependant pour des raisons de sécurité, il convient de faire pointer le document root de votre projet dans le dossier www du framework.
+C'est la toute la beauté du framework il n'y a rien a installer en plus ;). Il vous suffit d'avoir un serveur web avec php 5 ou plus fonctionnel.
+Cependant pour des raisons de sécurité, il est préférable de faire pointer le document root de votre projet dans le dossier www du framework.
 
 ## Documentation
-Toute la documentation est disponible sur [le site officiel ](http://utm.dizagn.com/?ctrl=documentation)
+Toute la documentation est disponible sur [le site officiel ](http://utm.dizagn.com/documentation.html)
 
 ## A propos du framework UTM
 ### Découvrez l'historique du projet UTM
