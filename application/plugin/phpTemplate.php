@@ -17,6 +17,7 @@
  * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2012
+ * @author : K.Queret
  * @version : $Id: phpTemplate.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @todo : Gérer les conflits de variables entre différents stacks et le layout

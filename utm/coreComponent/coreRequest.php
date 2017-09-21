@@ -27,6 +27,7 @@ class coreRequest extends coreComponent{
 
     const HTTP = 1; /*!< Indique si on accede au framework par un navigateur*/
     const CLI  = 2; /*!< Indique si on accede au framework en ligne de commande*/
+    const AJAX = 3; /*!< Indique si on accede au framework en ajax */
 
     protected $m_aReqElement = array() ;/*!< Elements constituants la requete*/
     protected $m_sRequestType;/*!< Indique si la requete est de type HTTP ou CLI*/
@@ -39,10 +40,24 @@ class coreRequest extends coreComponent{
 
     public function __construct(array $p_aReqElement){
         $this->m_aReqElement = array_flip($p_aReqElement) ;
-        $this->m_sRequestType = (PHP_SAPI!='cli') ? self::HTTP : self::CLI ;
+        
+        //$this->m_sRequestType = (PHP_SAPI!='cli') ? self::HTTP : self::CLI ;
+        if(PHP_SAPI=='cli'){
+            $this->m_sRequestType =self::CLI ;
+        }
+        else if(TRUE == $this->isAjax()){
+            $this->m_sRequestType =self::AJAX ;
+        }
+        else {
+            $this->m_sRequestType =self::HTTP ;
+        }
         // On definit la valeur par defaut d'un controller et de l'action
         $this->m_sController = core::$config['request']['default'] ;
         $this->m_sAction = core::$config['request']['default'] ;
+    }
+    
+    protected function isAjax(){
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && preg_match('#xmlhttprequest#i', $_SERVER['HTTP_X_REQUESTED_WITH']);
     }
 
     /**

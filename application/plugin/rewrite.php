@@ -34,12 +34,13 @@ class rewrite extends corePlugin
         $this->m_aRoute = core::$config['rewrite_rules'];
         $this->m_aRedirections = core::$config['rewrite_redirections'];
         $this->m_sDelimitor = core::$config['rewrite']['delimitor'];
-        $this->m_bEnabled = core::$config['rewrite']['enabled'];
-
-        $this->m_sBase = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ;
-        $this->m_sUrl = substr(parse_url($_SERVER['REQUEST_URI'],  PHP_URL_PATH), strlen($this->m_sBase)) ;
-        $this->m_sQueryString = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-        
+        $this->m_bEnabled = FALSE;
+        if(PHP_SAPI != 'cli'){
+            $this->m_bEnabled = core::$config['rewrite']['enabled'];
+            $this->m_sBase = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ;
+            $this->m_sUrl = substr(parse_url($_SERVER['REQUEST_URI'],  PHP_URL_PATH), strlen($this->m_sBase)) ;
+            $this->m_sQueryString = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        }       
         $this->m_bRouteFinded = FALSE;
     }
     
