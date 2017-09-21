@@ -1,9 +1,0 @@
-[db.dev]
-;plugin db
-host        = unidb3.fove.dom
-username    = prj_egaming
-passwd      = EkfVdkzkv5kTxQWv
-dbname      = easygaming
-port        = 3306
-charset     = utf8
-dumpToDebug = TRUE
