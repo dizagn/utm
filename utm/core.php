@@ -154,11 +154,13 @@ class core {
         require_once($l_aCtrl['path']);
         if(TRUE == method_exists($l_aCtrl['class'], $l_aCtrl['method'])){
             // On instancie le controlleur
-            $l_oInstance = new $l_aCtrl['class']() ;
+            $l_sClass = $l_aCtrl['class'] ;
+            $l_oInstance = new $l_sClass() ;
 
             // On verifie qu'il s'agit bien d'une classe qui etend coreController
             if(TRUE == ($l_oInstance instanceof coreController)){
-                $l_oInstance->$l_aCtrl['method']() ;
+                $l_sCtrlMethod = $l_aCtrl['method'] ;
+                $l_oInstance->$l_sCtrlMethod() ;
             }
             else{
                 throw New Exception('La classe : '.$l_aCtrl['class'].' ('.$l_aCtrl['path'].') doit étendre la classe coreController') ;
@@ -192,10 +194,12 @@ class core {
         else{
             require_once($l_aView['path']) ;
             if(TRUE == class_exists($l_aView['class'])){
-                $l_oView = new $l_aView['class']() ;
+                $l_sViewClass = $l_aView['class'];
+                $l_oView = new $l_sViewClass() ;
                 if(TRUE == method_exists($l_aView['class'], $l_aView['method'])){
                     if(TRUE == ($l_oView instanceof coreView)){
-                        return $l_oView->$l_aView['method']() ;
+                        $l_sViewMethod = $l_aView['method'] ;                
+                        return $l_oView->$l_sViewMethod() ;
                     }
                     else{
                         throw New Exception('La vue : '.$l_aView['class'].' ('.$l_aView['path'].') doit étendre la classe coreView') ;
