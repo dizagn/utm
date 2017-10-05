@@ -145,7 +145,7 @@ class form extends corePlugin {
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
             return $this;
         }
-        $l_sPattern = '&^[a-z0-9]+([a-z0-9\-\._]+)*@([a-z0-9\-_]+)+(\.[a-z]{2,})*$&';
+        $l_sPattern = '&^[a-zA-Z0-9]+([a-zA-Z0-9\-\._]+)*@([a-zA-Z0-9\-_]+)+(\.[a-zA-Z]{2,})*$&';
         $l_bReturn = preg_match($l_sPattern, $this->m_aData[$p_sVar]);
 
         // Test mx record

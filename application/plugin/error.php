@@ -82,7 +82,7 @@ class error extends corePlugin
                               'ENV' => TRUE == isset($_ENV) ? $_ENV : '',
                               'FILES' => TRUE == isset($_FILES) ? $_FILES : '') ;
 
-        // on vérifie si la varibale existe et si elle fait partie des
+        // on vérifie si la variable existe et si elle fait partie des
         // elements autorisés
         foreach($l_aSuper AS $l_sSuper){
             if(TRUE == isset($l_aAuthSuper[$l_sSuper]) &&
