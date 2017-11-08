@@ -160,9 +160,15 @@ class coreRequest extends coreComponent{
         $l_aInputs = array('get' => 'm_aGet',
                            'post'=> 'm_aPost',
                            'cli' => 'm_aCli') ;
-
-        if(TRUE == isset($this->$l_aInputs[strtolower($p_sElement)])){
-            return $this->$l_aInputs[strtolower($p_sElement)];
+        
+        if(FALSE == isset($l_aInputs[$p_sElement])){
+            throw New exception('Invalid method request') ; 
+        }
+        
+        // PHP7+ 
+        $l_sMethod = $l_aInputs[strtolower($p_sElement)] ;
+        if(TRUE == isset($this->$l_sMethod)){
+            return $this->$l_sMethod;
         }
         return FALSE;
     }

@@ -42,7 +42,8 @@ class coreComponent
             // On instancie le plugin si l'objet n'existe pas deja dans le
             // registre.
             if(FALSE == coreRegistry::exists(corePlugin::$m_aPlugin[$p_sMethod][0], core::$config['registry']['plugin'])){
-                coreRegistry::set(corePlugin::$m_aPlugin[$p_sMethod][0], new corePlugin::$m_aPlugin[$p_sMethod][0](), core::$config['registry']['plugin']);
+                $l_aPluginMethod = corePlugin::$m_aPlugin[$p_sMethod][0] ;
+                coreRegistry::set(corePlugin::$m_aPlugin[$p_sMethod][0], new $l_aPluginMethod(), core::$config['registry']['plugin']);
             }
             // On renvoi le resultat de la méthode du plugin appelée dynamiquement
             return call_user_func_array(array(coreRegistry::get(corePlugin::$m_aPlugin[$p_sMethod][0], core::$config['registry']['plugin']), $p_sMethod),
