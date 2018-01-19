@@ -91,7 +91,7 @@ class coreRequest extends coreComponent{
      */
     public function setRequest()
     {
-        if($this->m_sRequestType == self::HTTP){
+        if($this->m_sRequestType == self::HTTP || $this->m_sRequestType == self::AJAX){
             $l_aQuery = $this->httpParser();
             $this->m_aGet = $_GET ;
             $this->m_aPost = $_POST ;
