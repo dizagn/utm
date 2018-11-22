@@ -33,6 +33,7 @@ class form extends corePlugin {
      */
     public function init(array $p_aData){
         $this->m_aData = $p_aData;
+        $this->m_aError = NULL;
     }
 
     /**
