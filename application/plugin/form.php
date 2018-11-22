@@ -142,21 +142,13 @@ class form extends corePlugin {
     /**
      *
      */
-    public function isEmail($p_sVar, $p_sMessage, $p_bMx = TRUE, $p_sChained=TRUE){
+    public function isEmail($p_sVar, $p_sMessage, $p_sChained=TRUE){
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
             return $this;
         }
         $l_sPattern = '&^[a-zA-Z0-9]+([a-zA-Z0-9\-\._]+)*@([a-zA-Z0-9\-_]+)+(\.[a-zA-Z]{2,})*$&';
         $l_bReturn = preg_match($l_sPattern, $this->m_aData[$p_sVar]);
-
-        // Test mx record
-        if(TRUE == $p_bMx){
-            $l_aDomain = explode('@', $this->m_aData[$p_sVar]);
-            if(FALSE == isset($l_aDomain[1])  || !getmxrr($l_aDomain[1], $mxhostsarray)){
-                $l_bReturn = FALSE;
-            }
-        }
-
+        
         if(FALSE == $l_bReturn){
             $this->m_aError[$p_sVar][] = $p_sMessage ;
         }
