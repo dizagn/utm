@@ -1,0 +1,6 @@
+# Core Files  System
+/application/cache/*.json
+/application/cache/*.cache
+/application/log/*
+/www/css/*.min.css
+/www/css/*.map
