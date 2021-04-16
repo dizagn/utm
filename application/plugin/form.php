@@ -13,11 +13,10 @@
  * to contact@dizagn.com so we can send you a copy immediately.
  *
  * @license http://framework.dizagn.com/license  New BSD License
- * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
+ * @copyright  Copyright (c) 2002-2021 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2012
  * @author K.Queret 2016
- * @version : $Id: form.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @file
  * Gestionnaire de formulaire

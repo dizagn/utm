@@ -19,7 +19,6 @@
  * @copyright  Copyright (c) 2016 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2016
- * @version : $Id: userManager.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  *
  * @file
  * 

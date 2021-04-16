@@ -34,7 +34,6 @@
  * @author Andy Prevost
  * @author Marcus Bointon
  * @copyright 2004 - 2009 Andy Prevost
- * @version $Id: PHPMailerLite.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
