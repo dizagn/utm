@@ -12,10 +12,9 @@
  * to contact@dizagn.com so we can send you a copy immediately.
  *
  * @license http://framework.dizagn.com/license  New BSD License
- * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
+ * @copyright  Copyright (c) 2002-2021 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2008
- * @version  : $Id: index.php 57311 2017-09-14 15:44:08Z n.namont@uniteam.fr $
  */
 
 /**
@@ -30,10 +29,12 @@ require_once('../utm/core.php') ;
 $mvc = core::instance() ;
 
 // On enregistre les plugins de base
-$mvc->registerPlugin('debug','error');
+$mvc->registerPlugin('debug','utmerror');
 
 // On enregistre les plugins complémentaires en fonction du besoin
 $mvc->registerPlugin('env',/*'session',*/'phpTemplate','compressor',/*'userManager','db','form',*/'rewrite');
 
 // On lance l'execution du framework
 $mvc->run() ;
+
+// test
