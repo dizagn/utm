@@ -24,6 +24,11 @@
  * framework avec la methode "run".
  **/
 require_once('../utm/core.php') ;
+if(TRUE == file_exists('../vendor/autoload.php')){
+    require_once('../vendor/autoload.php') ;
+}else{
+    die("You should probably run \"composer install\" first ;) !") ;
+}
 
 // On crée l'instance
 $mvc = core::instance() ;

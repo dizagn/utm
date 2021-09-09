@@ -30,9 +30,10 @@
  * Inclusion des composants/librairies du framework grâce à l'autoload.
  * Les controlleurs et les vues ne sont pas gérés par cette methode
  **/
-function __autoload($p_sClassName) {
+function myLoader($p_sClassName) {
     include_once $p_sClassName . '.php';
 }
+spl_autoload_register('myLoader') ;
 
 /**
  * Classe principale du framework.

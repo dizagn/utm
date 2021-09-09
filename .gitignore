@@ -4,3 +4,5 @@
 /application/log/*
 /www/css/*.min.css
 /www/css/*.map
+# Composer vendor
+/vendor
