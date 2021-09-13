@@ -5,16 +5,13 @@
  * LICENSE
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.dizagn.com/license
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to contact@dizagn.com so we can send you a copy immediately.
  *
- * @license http://framework.dizagn.com/license  New BSD License
  * @copyright  Copyright (c) 2002-2021 Dizagn. (http://www.dizagn.com)
- * @link http://framework.dizagn.com
- * @author N.Namont Dizagn 2008
+ * @link https://www.dizagn.com
+ * @author N.Namont Dizagn
  */
 
 /**

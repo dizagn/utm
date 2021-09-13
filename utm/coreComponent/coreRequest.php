@@ -63,7 +63,11 @@ class coreRequest extends coreComponent{
      * Parse l'url pour créer l'objet request utilisable par le framework
      */
     public function httpParser(){
-        parse_str( $_SERVER['QUERY_STRING'] , $l_aQuery ) ;
+        if(TRUE == isset($_SERVER['QUERY_STRING'])){
+            parse_str( $_SERVER['QUERY_STRING'] , $l_aQuery ) ;
+        }else{
+            $l_aQuery = array();
+        }
         return $l_aQuery ;
     }
 

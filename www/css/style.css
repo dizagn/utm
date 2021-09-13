@@ -6,15 +6,44 @@ body{
     padding:0.5em;
     font-family: sans-serif;
 }
+#main, header, footer{
+    margin:auto;
+    width: 80%;
+    max-width:900px;
+}
 header, footer{
-    background-color: #DDD;
-    padding:0.5em 1em;
-    color:#555;
-    border-radius: 0.8em;
+    padding:0.5em 0em 0.5em 1em;
+    color:#9D1300;
+}
+header{
+    border-bottom: 1px solid #9D1300;
+}
+footer{
+    border-top: 1px solid #9D1300;
 }
 footer a, footer a:hover{
-    color:#555;
+    float:left;
+}
+a{
+    color:#9D1300;
+}
+a:hover{
+    color:#F89A00;
 }
 #main{
+    padding:1em;    
+}
+#footer-extra{
+    float: right;
+    width:128px;
+}
+#footer-extra img{
+    height: 32px;
+    padding-left: 10px;
+}
+#main pre{
     padding:1em;
+    background-color:#000;
+    color:chartreuse;
+    border-radius: 0.5em;
 }

@@ -1,18 +1,26 @@
 {
     "name": "dizagn/utm",
-    "description": "UTM PHP MicroFramework",
+    "description": "Template to create WebApp using UTM (microframework MVC) and composer",
     "type": "project",
-    "keywords": ["framework", "mvc", "utm", "microframework"],
+    "keywords": ["framework", "mvc", "utm", "microframework", "dizagn"],
     "homepage": "https://www.dizagn.com",
-    "require": {
-        "php": "7.*",
-        "monolog/monolog": "^2.3"
-    },
     "authors": [
         {
-            "name": "nicolas",
-            "email": "n.namont@agencefove.com"
+            "name": "Nico Dizagn",
+            "email": "niko@dizagn.com",
+            "role": "Maintener"
         }
     ],
-    "minimum-stability": "stable"
+    "support": {
+        "email": "utm-project@dizagn.com",
+        "source": "https://github.com/Dizagn/utm"
+    },
+    "require": {
+        "php": "7.*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
 }
