@@ -17,6 +17,7 @@
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2012
  * @author K.Queret 2016
+ * @version : $Id: form.php 50058 2016-09-26 09:32:07Z n.namont@uniteam.fr $
  *
  * @file
  * Gestionnaire de formulaire
@@ -60,12 +61,15 @@ class form extends corePlugin {
      * @param type $p_sField
      * @return mixed FALSE / Array of error
      */
-    public function getError($p_sField = NULL){
+    public function getError($p_sField = NULL,$p_bList=1){
         if(TRUE == is_null($p_sField)){
             return ($this->m_aError == NULL) ? FALSE : $this->m_aError ;
         }
         else{
-            return (FALSE == isset($this->m_aError[$p_sField])) ? FALSE : $this->m_aError[$p_sField] ;
+            if(FALSE == isset($this->m_aError[$p_sField])){
+                return FALSE ;
+            }
+            return (FALSE == $p_bList) ? $this->m_aError[$p_sField] : $this->m_aError[$p_sField][0] ; 
         }
     }
 
@@ -132,7 +136,7 @@ class form extends corePlugin {
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
             return $this;
         }
-        if(FALSE == isset($this->m_aData[$p_sVar]) || FALSE == is_string($this->m_aData[$p_sVar]) || $this->m_aData[$p_sVar] == ''){
+        if(FALSE == isset($this->m_aData[$p_sVar]) || (TRUE == is_string($this->m_aData[$p_sVar]) && $this->m_aData[$p_sVar] == '') || (TRUE == is_array($this->m_aData[$p_sVar]) && empty($this->m_aData[$p_sVar])) ){
             $this->m_aError[$p_sVar][] = $p_sMessage ;
         }
         return $this ;
@@ -154,11 +158,24 @@ class form extends corePlugin {
         return $this;
     }
 
+    public function isSBEmail($p_sVar, $p_sMessage, $p_sChained=TRUE){
+        if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
+            return $this;
+        }
+        $l_sPattern = '&^[a-z0-9]+([a-z0-9\-\._]+)*@([a-z0-9\-_]+)+(\.[a-z]{2,})*$&';
+        $l_bReturn = preg_match($l_sPattern, $this->m_aData[$p_sVar]);
+        
+        if(FALSE == $l_bReturn){
+            $this->m_aError[$p_sVar][] = $p_sMessage ;
+        }
+        return $this;
+    }
+
     /**
      * verifie un code postal
      * @param type $p_sVar
      * @param type $p_sMessage
-     * @return type
+     * @return object $this
      */
     public function isZipCode($p_sVar, $p_sMessage, $p_sChained=TRUE){
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
@@ -334,8 +351,58 @@ class form extends corePlugin {
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
             return $this;
         }
-        $l_sPattern = '&^0[1-9][0-9]{8}$&' ;
-        if(FALSE == preg_match($l_sPattern, $this->m_aData[$p_sVar])){
+
+        //$l_sPattern = '&^0[1-9][0-9]{8}$&' ; // 10 digits
+        $l_sPattern = '&^[\+]*[0-9]{10,14}$&' ; // @todo : check regex : international phone numbers
+        if(FALSE == preg_match($l_sPattern, str_replace(' ', '', $this->m_aData[$p_sVar]))){
+            $this->m_aError[$p_sVar][] = $p_sMessage ;
+        }
+        return $this;
+    }
+
+    /**
+     * Vérifie un numéro de téléphone français au format xx.xx.xx.xx.xx
+     **/
+    public function isFrenchPhone($p_sVar, $p_sMessage, $p_sChained=TRUE){
+        if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
+            return $this;
+        }
+
+        $l_sPattern = '&^([0-9]{2})((\.[0-9]{2}){4})$&' ;
+        if(FALSE == preg_match($l_sPattern, str_replace(' ', '', $this->m_aData[$p_sVar]))){
+            $this->m_aError[$p_sVar][] = $p_sMessage ;
+        }
+        return $this;
+    }
+
+    /**
+     * Vérifie si deux valeurs sont identiques
+     **/
+    public function isEqualTo($p_sVar, $p_sVarTo, $p_sMessage, $p_sChained=TRUE){
+        if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar]) && !empty($this->m_aError[$p_sVarTo])){
+            return $this;
+        }
+        if( $this->m_aData[$p_sVar] != $this->m_aData[$p_sVarTo] ){
+            $this->m_aError[$p_sVar][] = $p_sMessage ;
+        }
+        return $this;
+    }
+
+    /**
+     * Vérifie si la chaine contient un caractère de chaque type (1 Maj., 1 Min., 1 chiffre, 1 spécial)
+     **/
+    public function isAllType($p_sVar, $p_sMessage, $p_sChained=TRUE){
+        if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
+            return $this;
+        }
+
+        $lb_validate = TRUE;
+        if(FALSE == preg_match( '&[a-z]+&', $this->m_aData[$p_sVar])) $lb_validate = FALSE;
+        if(FALSE == preg_match( '&[A-Z]+&', $this->m_aData[$p_sVar])) $lb_validate = FALSE;
+        if(FALSE == preg_match( '&[0-9]+&', $this->m_aData[$p_sVar])) $lb_validate = FALSE;
+        if(FALSE == preg_match( '&[\&~"#\'{([\-|`_\\^@)°\]+=}£$€¤%µ*?,.;\/:§!<>]+&', $this->m_aData[$p_sVar])) $lb_validate = FALSE;
+
+        if(FALSE == $lb_validate){
             $this->m_aError[$p_sVar][] = $p_sMessage ;
         }
         return $this;
@@ -370,7 +437,49 @@ class form extends corePlugin {
     }
 
     /**
-     * Vérifie un numéro de téléphone
+     * Test la valeur de $_POST['g-recaptcha-response'] en utilisant le server side check 
+     */
+    public function isGoogleRecaptchaValid($p_sVar, $p_sMessage,$p_sPrivateKey, $p_sChained=TRUE){
+        if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
+            return $this;
+        }
+        // On test 
+        $l_oResult = $this->callGoogleCaptcha($p_sVar, $p_sPrivateKey ) ;
+        
+        if(FALSE == $l_oResult->success ){
+            $code = 'error-codes'; // a cause du tiret on passe par une variable car $l_oResult->error-codes passe pas
+            $this->m_aError[$p_sVar][] = $p_sMessage. ' ('.$l_oResult->$code[0].')' ;
+        }
+        return $this ;
+    }
+
+    /**
+     * Server side check
+     * https://developers.google.com/recaptcha/docs/verify
+     */
+    protected function callGoogleCaptcha($p_sVar, $p_sPrivateKey){
+
+        $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => http_build_query(
+                    array(
+                        'secret' => $p_sPrivateKey ,
+                        'response' => $this->m_aData[$p_sVar] )
+                )
+            )
+        );
+
+        $context  = stream_context_create($opts);        
+        $l_oResult = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context));
+        
+        return $l_oResult ;
+    }
+
+
+    /**
+     * 
      **/
     public function checkCallback($p_sVar, $p_sMessage, $p_mCallback, $p_sChained=TRUE){
         if (TRUE === $p_sChained && !empty($this->m_aError[$p_sVar])){
