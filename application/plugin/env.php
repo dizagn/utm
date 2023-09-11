@@ -14,9 +14,10 @@
  * to contact@dizagn.com so we can send you a copy immediately.
  *
  * @license http://framework.dizagn.com/license  New BSD License
- * @copyright  Copyright (c) 2002-2021 Dizagn. (http://www.dizagn.com)
+ * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author N.Namont Dizagn 2012
+ * @version : $Id: env.php 56946 2017-08-23 08:55:05Z n.namont@uniteam.fr $
  * 
  * @file
  * Permet de surcharger facilement une config en fonction des environements de 
@@ -31,7 +32,7 @@
  * -> Exemple dand un fichier .ini
  *     env = preprod
  *     
- * -> Exemple d'application dans un fichier config.ini
+ * -> Exemple d'application dans un fichier config.ini 
  * [db]
  *  host = mysql.dizagn.com
  *  login = web_user
@@ -55,6 +56,9 @@ class env extends corePlugin
         if(TRUE == isset($_SERVER[self::env])){
             $this->setEnv($_SERVER[self::env]);
         }
+        else if(PHP_SAPI=='cli' && FALSE != $this->findEnvInCLi()){
+            $this->setEnv($this->findEnvInCLi());
+        }
         // Sinon on regarde dans les fichiers .ini de config
         else if(TRUE == isset(core::$config[self::env])){
             $this->setEnv(core::$config[self::env]);
@@ -63,18 +67,32 @@ class env extends corePlugin
             $this->setEnv(FALSE);
         }
     }
+
+    /**
+     * Cherche dans le CLI si la variable env est passée pour l'enregistrer 
+     */
+    protected function findEnvInCLi(){
+        parse_str($_SERVER['argv'][1], $l_aTemp) ;
+        if(TRUE == isset($l_aTemp['env'])){
+            return $l_aTemp['env'] ;
+        }
+        return FALSE;
+    }
     
     /**
      * Accesseur de type set
      * @param type $p_sEnv 
      */
     protected function setEnv($p_sEnv){
+        // On set dans l'objet
         $this->env = (string)$p_sEnv;
+        // Puis on ecrase la valeur dans la config pour l'instance 
+        core::$config['env'] = $p_sEnv;
     }
     
     /**
      * Au lancement du plugin parcours chaque valeur et surcharge la config
-     * dont l'entrée est présente souon s la forme [clé.env]
+     * dont l'entrée est présente sous la forme [clé.env]
      */
     public function onStart(){
         if(FALSE != $this->env){

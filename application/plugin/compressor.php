@@ -12,9 +12,10 @@
  * to contact@dizagn.com so we can send you a copy immediately.
  *
  * @license http://framework.dizagn.com/license New BSD License
- * @copyright  Copyright (c) 2002-2021 Dizagn. (http://www.dizagn.com)
+ * @copyright  Copyright (c) 2002-2010 Dizagn. (http://www.dizagn.com)
  * @link http://framework.dizagn.com
  * @author K.Queret, N.Namont
+ * @version: $Id: compressor.php 55529 2017-06-13 09:09:41Z n.namont@uniteam.fr $
  *
  * @file
  * Compresseur de fichiers CSS & JS
@@ -75,8 +76,9 @@ class compressor extends corePlugin
 
         // Si le compressor est désactivé ou Si le fichier n'existe pas on log
         if( !is_file($p_sJSFileName)){
+            
             if(TRUE == $this->isLoaded('debug')){
-                $this->debug->addToDebug('Compressor [JS]', 'Le fichier '.$p_sJSFileName.' n\'a pu être chargé', 'compressor');
+                $this->debug->addToDebug('Compressor JS', 'Le fichier '.$p_sJSFileName.' n\'a pu être chargé', 'compressor');
             }
             return $p_sJSFileName;
         }
@@ -89,20 +91,24 @@ class compressor extends corePlugin
             !isset($this->m_aCache[$p_sJSFileName]) ||
             filemtime($p_sJSFileName) > $this->m_aCache[$p_sJSFileName]){
 
-            include 'JSMinPlus.php';
+            include_once 'JSMinPlus.php';
             if(FALSE  != file_put_contents($l_sMinFileName, JSMinPlus::minify(file_get_contents($p_sJSFileName)))){
                 $this->m_aCache[$p_sJSFileName] = filemtime($p_sJSFileName);
                 $this->m_bUpdateCache = true;
                 $l_sMessage = 'Ecriture du fichier ' . $l_sMinFileName ;
             }
             else{
-                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture, fichier vide ?) : ' . $l_sMinFileName ;
+                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture?) : ' . $l_sMinFileName ;
             }
         }
 
         /* Utilisation du plugin debug pour logguer*/
         if(TRUE == $this->isLoaded('debug') && TRUE == isset($l_sMessage)){
-            $this->debug->addToDebug('Compressor [JS]', $l_sMessage, 'compressor');
+            $this->debug->addToDebug('Compressor JS', $l_sMessage, 'compressor');
+        }
+        // On ajoute ca pour forcer le rafraichissement du cache
+        if(TRUE == isset($this->m_aCache[$p_sJSFileName])){
+            return $l_sMinFileName.'?'.$this->m_aCache[$p_sJSFileName];
         }
         return $l_sMinFileName;
     }
@@ -139,12 +145,16 @@ class compressor extends corePlugin
                 $l_sMessage = 'Ecriture du fichier ' . $l_sMinFileName ;
             }
             else{
-                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture, ou fichier vide ?) : ' . $l_sMinFileName ;
+                $l_sMessage = 'Impossible de generer le fichier (probleme d\'écriture?) : ' . $l_sMinFileName ;
             }
 
             if(TRUE == $this->isLoaded('debug')){
-                $this->debug->addToDebug('Compressor [CSS]', $l_sMessage, 'compressor');
+                $this->debug->addToDebug('Compressor CSS', $l_sMessage, 'compressor');
             }
+        }
+        // On ajoute ca pour forcer le rafraichissement du cache
+        if(TRUE == isset($this->m_aCache[$p_sCSSFileName])){
+            return $l_sMinFileName.'?'.$this->m_aCache[$p_sCSSFileName];
         }
         return $l_sMinFileName;
     }
